@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>
+      Documentation
+    </title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <link href="css/screen-e1f29516ca.css" rel="stylesheet">
+</head>
+
+  <body>
+    <!-- Main jumbotron for a primary marketing message or call to action
+    -->
+    <!-- /container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+    >
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
+    >
+    </script>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="home.html">Backpack</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="tutorial.html">Getting started</a>
+            </li>
+            <li class="active">
+              <a href="#">Documentation</a>
+            </li>
+            <li>
+              <a href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <!--/.navbar-collapse -->
+      </div>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <img src="https://s3.amazonaws.com/media.jetstrap.com/Bxf9D0NRkiRXyFqRFhDO_delivery30 (1).png">
+        <p>
+        </p>
+        <h2>
+          Documentation
+        </h2>
+      </div>
+    </div>
+    <div class="container">
+      <h1>
+        API Usage
+      </h1>
+      <hr>
+      <h3>
+        "/store/"
+      </h3>
+      <p>
+        "help"
+      </p>
+      <h3>
+        "/store/sets[?page={num_of_pages}][&amp;per_page={records_per_page}]"
+      </h3>
+      <p>
+        "get" : "Show all sets"
+      </p>
+      <h3>
+        "/store/set/{set_name}"
+      </h3>
+      <p>
+        "post" : "create set"
+      </p>
+      <p>
+        "delete" : "delete set"
+      </p>
+      <p>
+        "put" : "rename set"
+      </p>
+      <h3>
+        "/store/set/{set_name}/files"
+      </h3>
+      <p>
+        "get" : "get metadata of all files in the set"
+      </p>
+      <p>
+        "post" : "query metadata of all files in the set"
+      </p>
+      <h3>
+        "/store/set/{set_name}/file/{file_name}"
+      </h3>
+      <p>
+        "post" : "upload file (overwrite)"
+      </p>
+      <p>
+        "delete" : "delete file"
+      </p>
+      <p>
+        "get" : "download file"
+      </p>
+      <h3>
+        "/store/set/{set_name}/items[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "get items"
+      </p>
+      <p>
+        "post" : "query items"
+      </p>
+      <p>
+        "put" : "insert items"
+      </p>
+      <p>
+        "patch" : "partially update items. req.body[0] is search pattern and req.body[1]
+        is patching action"
+      </p>
+      <p>
+        "delete" : "delete items. (optionally by a query as req.body)"
+      </p>
+      <h3>
+        "/store/set/{set_name}/item/{item_id}"
+      </h3>
+      <p>
+        "get" : "find item by Id"
+      </p>
+      <p>
+        "post" : "insert item by Id"
+      </p>
+      <p>
+        "put" : "replace entire item by Id"
+      </p>
+      <p>
+        "delete" : "delete item by Id"
+      </p>
+      <h3>
+        "/store/set/{set_name}/places[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "get locations"
+      </p>
+      <p>
+        "post" : "query locations (e.g. Get locations within N meters from a coordinate
+        {'loc':{'$near':{'$geometry':{'type': 'Point', 'coordinates': [ -122.1667,
+        47.6 ] }, '$maxDistance':10000}}})"
+      </p>
+      <p>
+        "put" : "insert locations (must contain 'loc' with 'type' of 'Point':
+        e.g.'loc':{'type': 'Point', 'coordinates': [ -123.1, 49.25 ] })"
+      </p>
+      <p>
+        "patch" : "partially update locations. req.body[0] is search pattern and
+        req.body[1] is patching action"
+      </p>
+      <p>
+        "delete" : "delete places. (optionally by a query as req.body)"
+      </p>
+      <h3>
+        "/store/set/{set_name}/next[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "Get the next record(s) (without isolation)"
+      </p>
+      <p>
+        "post" : "Get the next record(s) for the query (without isolation)"
+      </p>
+      <h3>
+        "/store/reset" : "Reset the cursor of next for the session"
+      </h3>
+      <h3>
+        "/store/set/{set_name}/count?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "get count of all items in a collection"
+      </p>
+      <p>
+        "post" : "get the count of the query results"
+      </p>
+      <h3>
+        "/store/set/{set_name}/max?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "calculate max of a property upon all items"
+      </p>
+      <p>
+        "post" : "calculate max of a property upon the query results"
+      </p>
+      <h3>
+        "/store/set/{set_name}/min?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "calculate min of a property upon all items"
+      </p>
+      <p>
+        "post" : "calculate min of a property upon the query results"
+      </p>
+      <h3>
+        "/store/set/{set_name}/sum?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "calculate sum of a property upon all items"
+      </p>
+      <p>
+        "post" : "calculate sum of a property upon the query results"
+      </p>
+      <h3>
+        "/store/set/{set_name}/avg?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
+      </h3>
+      <p>
+        "get" : "calculate avgerage of a property upon all items"
+      </p>
+      <p>
+        "post" : "calculate average of a property upon the query results"
+      </p>
+    </div>
+  </body>
+
+</html>

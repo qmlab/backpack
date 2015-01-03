@@ -1,0 +1,12 @@
+{
+  "name": "backpack",
+  "root": "public",
+  "clean_urls": true,
+  "error_page": "error.html",
+  "redirects": {
+    "/": {
+      "status": 302,
+      "url": "/home"
+    }
+  }
+}

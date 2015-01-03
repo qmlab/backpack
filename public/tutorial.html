@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Tutorial
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+    rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+    rel="stylesheet">
+    <link href="css/screen-8dafcd57b9.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+    >
+    </script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
+    >
+    </script>
+    <div class="jumbotron">
+      <div class="container">
+        <img src="https://s3.amazonaws.com/media.jetstrap.com/Bxf9D0NRkiRXyFqRFhDO_delivery30 (1).png">
+        <p>
+        </p>
+        <h2>
+          Getting started!
+        </h2>
+      </div>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Backpack</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <a href="tutorial.html">Getting started</a>
+            </li>
+            <li>
+              <a href="documentation.html">Documentation</a>
+            </li>
+            <li>
+              <a href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <!--/.navbar-collapse -->
+      </div>
+    </div>
+    <div class="container">
+      <h1>
+        To get started
+      </h1>
+      <hr>
+      <p>
+        • Sign up at backpack to get the keys and cert
+      </p>
+      <p>
+        • Install the cert to your Trusted Root CA
+      </p>
+      <p>
+        • Please use basic auth with a key as username and your password as password
+        (either key is fine for help message)
+      </p>
+      <p>
+      </p>
+    </div>
+    <div class="container">
+      <h1>
+        Examples
+      </h1>
+      <hr>
+      <h2>
+        Demo of Geo query
+      </h2>
+      <h3>
+        Add locations to the set of "washingtoncities":
+      </h3>
+      <p>
+        PUT https://backpack.ddns.net/store/set/washingtoncities/places
+      </p>
+      <p>
+        PUT BODY: [{"name":"vancouver","loc":{"type": "Point", "coordinates":
+        [ -123.1, 49.25 ] }}, ...]
+      </p>
+      <br>
+      <h3>
+        Query all locations in the set of "washingtoncities":
+      </h3>
+      <p>
+        GET https://backpack.ddns.net/store/set/washingtoncities/places
+      </p>
+      <p>
+        Result: [{"_id":"54a34de1773ba0ba41111180","name":"vancouver","loc":{"type":"Point","coordinates":[-123.1,49.25]}},{"_id":"54a34de1773ba0ba41111181","name":"tacoma","loc":{"type":"Point","coordinates":[-122.4594,47.2414]}},{"_id":"54a34de1773ba0ba41111182","name":"kirkland","loc":{"type":"Point","coordinates":[-122.1917,47.6858]}},{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
+      </p>
+      <br>
+      <h3>
+        Query locations within 10km of bellevue ([ -122.1667, 47.6 ]):
+      </h3>
+      <p>
+        POST https://backpack.ddns.net/store/set/washingtoncities/places
+      </p>
+      <p>
+        POST BODY: {"loc":{"$near":{"$geometry":{"type": "Point", "coordinates":
+        [ -122.1667, 47.6 ] }, "$maxDistance":10000}}}
+      </p>
+      <p>
+        Result: [{"_id":"54a34de1773ba0ba41111182","name":"kirkland","loc":{"type":"Point","coordinates":[-122.1917,47.6858]}},{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
+      </p>
+      <br>
+      <h2>
+        Demo of Regex query
+      </h2>
+      <h3>
+        Query location with name starting with "red":
+      </h3>
+      <p>
+        POST https://backpack.ddns.net/store/set/washingtoncities/places
+      </p>
+      <p>
+        POST BODY: {"name": {"$regex": "^red.*"}} Result: [{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
+      </p>
+    </div>
+  </body>
+
+</html>
