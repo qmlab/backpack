@@ -59,24 +59,29 @@
       <div class="row">
         <div class="col-md-8">
           <h3>
-            Welcome to leave your feedback
+            Currently, the service is in alpha preview. If you want to try it or have any feedback, please contact us:
           </h3>
           <div class="form-group">
+            <form action="MAILTO:" + "javascript:'qmm'.concat('ailbox@g', 'mail.com')" method="post" enctype="text/plain">
             <label>
               Name
             </label>
-            <input type="text" class="form-control">
-          </div>
-          <div class="form-group">
+            <input type="text" name="name" class="form-control">
             <label>
-              Your feedback
+              Your Email
             </label>
-            <textarea class="form-control"></textarea>
+            <input type="text" name="email" class="form-control">
+            <label>
+              Your Message
+            </label>
+            <textarea class="form-control" name="message"></textarea>
+            <input type="submit" value="send" class="btn btn-default btn-success" />
+          </form>
           </div>
-          <a href="#" class="btn btn-default btn-success">Send</a>
         </div>
         <div class="col-md-4">
           <img src="https://s3.amazonaws.com/media.jetstrap.com/edEysr3KQ3CyseOzDc45_call36.png">
+          <p/>
           <p class="text-left">
             Share your thoughts with us!
           </p>
