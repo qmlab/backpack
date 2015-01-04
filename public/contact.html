@@ -10,8 +10,9 @@
     <title>
       Contact
     </title>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-    rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://jschr.github.io/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" />
+    <link href="http://jschr.github.io/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet">
 
     <link href="css/screen-08fb6ecd07.css" rel="stylesheet">
 </head>
@@ -23,6 +24,33 @@
     </script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
     >
+    </script>
+    <script>
+    $(function() {
+      var form = $('#form-ajax')
+      var messagediv = $('#div-ajax')
+
+      //twitter bootstrap script
+      $(form).submit(function(event){
+        // Stop the browser from submitting the form.
+        event.preventDefault()
+
+        $('#sending').show()
+        var formdata = JSON.stringify($(form).serializeArray())
+        $.ajax({
+          type: 'POST',
+          url: $(form).attr('action'),
+          data: formdata,
+          contentType: 'application/json; charset=utf-8'
+        })
+        .done(function(res) {
+          $(messagediv).html('<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><strong> ' + res + '</strong><p>Thank you for your interest!</p></div>')
+        })
+        .fail(function(res) {
+          $(messagediv).html('<div class="alert alert-warning" role="alert"><strong> An error occured during the sending process:</strong><p>' + res + '</p><p>Please try again later</p></div>')
+        })
+      })
+    })
     </script>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -66,22 +94,33 @@
           <h3>
             Currently, the service is in alpha preview. If you want to try it or have any feedback, please contact us:
           </h3>
-          <div class="form-group">
-            <form action="MAILTO:" + "javascript:'qmm'.concat('ailbox@g', 'mail.com')" method="post" enctype="text/plain">
-            <label>
-              Name
-            </label>
-            <input type="text" name="subject" class="form-control">
-            <label>
-              Your Email
-            </label>
-            <input type="text" name="email" class="form-control">
-            <label>
-              Your Message
-            </label>
-            <textarea class="form-control" name="email"></textarea>
-            <input type="submit" value="send" class="btn btn-default btn-success" />
-          </form>
+          <div id="div-ajax">
+            <form method="post" action="/feedback" id="form-ajax">
+              <fieldset>
+                <div class="form-group">
+                  <label>
+                    Name
+                  </label>
+                  <input type="text" name="subject" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>
+                    Your Email
+                  </label>
+                  <input type="text" name="from" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>
+                    Your Message
+                  </label>
+                  <textarea class="form-control" name="email" required></textarea>
+                </div>
+              </fieldset>
+              <button id="submit" class="btn btn-default btn-success">Submit</button>
+              <div id="sending" style="display:none" class="alert alert-success" role="alert">
+                  Sending message to us...
+              </div>
+            </form>
           </div>
         </div>
         <div class="col-md-4">
@@ -97,7 +136,6 @@
           </p>
         </div>
       </div>
-    </div>
-  </body>
+    </body>
 
 </html>

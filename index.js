@@ -3,6 +3,7 @@ var express = require('express')
 , nconf = require('nconf')
 , compress = require('compression')
 , path = require('path')
+, mailer = require('nodemailer')
 
 var app = express()
 
@@ -50,6 +51,37 @@ app.get('/documentation', function(req, res) {
 
 app.get('/contact', function(req, res) {
   res.render('contact.html')
+})
+
+app.post('/feedback', function(req, res) {
+  var username = nconf.get('gmail_user')
+  var passwd = nconf.get('gmail_password')
+  // Use Smtp Protocol to send Email
+  var smtpTransport = mailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: username + '@gmail.com',
+      pass: passwd
+    }
+  });
+
+  var mail = {
+    from: req.body.from,
+    to: username + '@gmail.com',
+    subject: req.body.subject,
+    text: 'from: ' + req.body.from + '\r\nmessage: ' + req.body.email,
+    html: ''
+  }
+
+  smtpTransport.sendMail(mail, function(error, response){
+    if(error){
+      res.send(error);
+    }else{
+      res.send('Message sent!');
+    }
+
+    smtpTransport.close();
+  });
 })
 
 app.listen(nconf.get('port'))
