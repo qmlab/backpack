@@ -11,8 +11,11 @@
     </title>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
     rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+    rel="stylesheet">
 
     <link href="css/screen-e1f29516ca.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
 </head>
 
   <body>
@@ -24,6 +27,20 @@
     </script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
     >
+    </script>
+    <script>
+    $(function(){ // document ready
+      $('body').scrollspy({
+        target: '.bs-docs-sidebar',
+        offset: 40
+      });
+
+      $("#sidebar").affix({
+        offset: {
+          top: 200
+        }
+      });
+    });
     </script>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -53,178 +70,268 @@
     </div>
     <div class="jumbotron">
       <div class="container">
-        <img src="https://s3.amazonaws.com/media.jetstrap.com/Bxf9D0NRkiRXyFqRFhDO_delivery30 (1).png">
-        <p>
-        </p>
-        <h2>
-          Documentation
-        </h2>
+        <center>
+          <h1>
+            Documentation
+          </h1>
+          <p>
+            Backpack API V1
+          </p>
+        </center>
       </div>
     </div>
-    <div class="container">
-      <h1>
-        API Usage
-      </h1>
-      <hr>
-      <h3>
-        "/store/"
-      </h3>
-      <p>
-        "help"
-      </p>
-      <h3>
-        "/store/sets[?page={num_of_pages}][&amp;per_page={records_per_page}]"
-      </h3>
-      <p>
-        "get" : "Show all sets"
-      </p>
-      <h3>
-        "/store/set/{set_name}"
-      </h3>
-      <p>
-        "post" : "create set"
-      </p>
-      <p>
-        "delete" : "delete set"
-      </p>
-      <p>
-        "put" : "rename set"
-      </p>
-      <h3>
-        "/store/set/{set_name}/files"
-      </h3>
-      <p>
-        "get" : "get metadata of all files in the set"
-      </p>
-      <p>
-        "post" : "query metadata of all files in the set"
-      </p>
-      <h3>
-        "/store/set/{set_name}/file/{file_name}"
-      </h3>
-      <p>
-        "post" : "upload file (overwrite)"
-      </p>
-      <p>
-        "delete" : "delete file"
-      </p>
-      <p>
-        "get" : "download file"
-      </p>
-      <h3>
-        "/store/set/{set_name}/items[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "get items"
-      </p>
-      <p>
-        "post" : "query items"
-      </p>
-      <p>
-        "put" : "insert items"
-      </p>
-      <p>
-        "patch" : "partially update items. req.body[0] is search pattern and req.body[1]
-        is patching action"
-      </p>
-      <p>
-        "delete" : "delete items. (optionally by a query as req.body)"
-      </p>
-      <h3>
-        "/store/set/{set_name}/item/{item_id}"
-      </h3>
-      <p>
-        "get" : "find item by Id"
-      </p>
-      <p>
-        "post" : "insert item by Id"
-      </p>
-      <p>
-        "put" : "replace entire item by Id"
-      </p>
-      <p>
-        "delete" : "delete item by Id"
-      </p>
-      <h3>
-        "/store/set/{set_name}/places[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "get locations"
-      </p>
-      <p>
-        "post" : "query locations (e.g. Get locations within N meters from a coordinate
-        {'loc':{'$near':{'$geometry':{'type': 'Point', 'coordinates': [ -122.1667,
-        47.6 ] }, '$maxDistance':10000}}})"
-      </p>
-      <p>
-        "put" : "insert locations (must contain 'loc' with 'type' of 'Point':
-        e.g.'loc':{'type': 'Point', 'coordinates': [ -123.1, 49.25 ] })"
-      </p>
-      <p>
-        "patch" : "partially update locations. req.body[0] is search pattern and
-        req.body[1] is patching action"
-      </p>
-      <p>
-        "delete" : "delete places. (optionally by a query as req.body)"
-      </p>
-      <h3>
-        "/store/set/{set_name}/next[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "Get the next record(s) (without isolation)"
-      </p>
-      <p>
-        "post" : "Get the next record(s) for the query (without isolation)"
-      </p>
-      <h3>
-        "/store/reset" : "Reset the cursor of next for the session"
-      </h3>
-      <h3>
-        "/store/set/{set_name}/count?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "get count of all items in a collection"
-      </p>
-      <p>
-        "post" : "get the count of the query results"
-      </p>
-      <h3>
-        "/store/set/{set_name}/max?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "calculate max of a property upon all items"
-      </p>
-      <p>
-        "post" : "calculate max of a property upon the query results"
-      </p>
-      <h3>
-        "/store/set/{set_name}/min?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "calculate min of a property upon all items"
-      </p>
-      <p>
-        "post" : "calculate min of a property upon the query results"
-      </p>
-      <h3>
-        "/store/set/{set_name}/sum?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "calculate sum of a property upon all items"
-      </p>
-      <p>
-        "post" : "calculate sum of a property upon the query results"
-      </p>
-      <h3>
-        "/store/set/{set_name}/avg?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]"
-      </h3>
-      <p>
-        "get" : "calculate avgerage of a property upon all items"
-      </p>
-      <p>
-        "post" : "calculate average of a property upon the query results"
-      </p>
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="container">
+          <h1>
+            API Usage
+          </h1>
+          <hr>
+          <h2 id="help">General help</h2>
+          <pre>/store/</pre>
+          <ul>
+            <li>
+              all : help
+            </li>
+          </ul>
+          <h2 id="setgroup">Set operations</h2>
+          <pre id="sets">/store/sets[?page={num_of_pages}][&amp;per_page={records_per_page}]</pre>
+          <ul>
+            <li>
+              get : Show all sets
+            </li>
+          </ul>
+          <pre id="set">/store/set/{set_name}</pre>
+          <ul>
+            <li>
+              post : create set
+            </li>
+            <li>
+              delete : delete set
+            </li>
+            <li>
+              put : rename set
+            </li>
+          </ul>
+          <h2 id="filegroup">File operations</h2>
+          <pre id="files">/store/set/{set_name}/files</pre>
+          <ul>
+            <li>
+              get : get metadata of all files in the set
+            </li>
+            <li>
+              post : query metadata of all files in the set
+            </li>
+          </ul>
+          <pre id="file">/store/set/{set_name}/file/{file_name}</pre>
+          <ul>
+            <li>
+              post : upload file (overwrite)
+            </li>
+            <li>
+              delete : delete file
+            </li>
+            <li>
+              get : download file
+            </li>
+          </ul>
+          <h2 id="itemgroup">General object operations</h2>
+          <pre id="items">/store/set/{set_name}/items[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : get items
+            </li>
+            <li>
+              post : query items
+            </li>
+            <li>
+              put : insert items
+            </li>
+            <li>
+              patch : partially update items. req.body[0] is search pattern and req.body[1] is patching action
+            </li>
+            <li>
+              delete : delete items. (optionally by a query as req.body)
+            </li>
+          </ul>
+          <pre id="item">/store/set/{set_name}/item/{item_id}</pre>
+          <ul>
+            <li>
+              get : find item by Id
+            </li>
+            <li>
+              post : insert item by Id
+            </li>
+            <li>
+              put : replace entire item by Id
+            </li>
+            <li>
+              delete : delete item by Id
+            </li>
+          </ul>
+          <h2 id="placegroup">Geo-location operations</h2>
+          <pre id="places">/store/set/{set_name}/places[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : get locations
+            </li>
+            <li>
+              post : query locations (e.g. Get locations within N meters from a coordinate {'loc':{'$near':{'$geometry':{'type': 'Point', 'coordinates': [ -122.1667, 47.6 ] }, '$maxDistance':10000}}})
+            </li>
+            <li>
+              put : insert locations (must contain 'loc' with 'type' of 'Point': e.g.'loc':{'type': 'Point', 'coordinates': [ -123.1, 49.25 ] })
+            </li>
+            <li>
+              patch : partially update locations. req.body[0] is search pattern and req.body[1] is patching action
+            </li>
+            <li>
+              delete : delete places. (optionally by a query as req.body)
+            </li>
+          </ul>
+          <h2 id="iterationgroup">Iterations</h2>
+          <pre id="next">/store/set/{set_name}/next[?page={num_of_pages}][&amp;per_page={records_per_page}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : Get the next record(s) (without isolation)
+            </li>
+            <li>
+              post : Get the next record(s) for the query (without isolation)
+            </li>
+          </ul>
+          <pre id="reset">/store/reset</pre>
+          <ul>
+            <li>
+              all : Reset the cursor of next for the session
+            </li>
+          </ul>
+          <h2 id="aggregationgroup">Aggregations</h2>
+          <pre id="count">/store/set/{set_name}/count?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : get count of all items in a collection
+            </li>
+            <li>
+              post : get the count of the query results
+            </li>
+          </ul>
+          <pre id="max">/store/set/{set_name}/max?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : calculate max of a property upon all items
+            </li>
+            <li>
+              post : calculate max of a property upon the query results
+            </li>
+          </ul>
+          <pre id="min">/store/set/{set_name}/min?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : calculate min of a property upon all items
+            </li>
+            <li>
+              post : calculate min of a property upon the query results
+            </li>
+          </ul>
+          <pre id="sum">/store/set/{set_name}/sum?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : calculate sum of a property upon all items
+            </li>
+            <li>
+              post : calculate sum of a property upon the query results
+            </li>
+          </ul>
+          <pre id="avg">/store/set/{set_name}/avg?prop={name1}[&amp;groupby={name2}][&amp;orderby={sortkey}][&amp;{desc=1|asc=1}]</pre>
+          <ul>
+            <li>
+              get : calculate avg of a property upon all items
+            </li>
+            <li>
+              post : calculate avg of a property upon the query results
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xs-3 bs-docs-sidebar">
+        <ul class="nav nav-stacked" id="sidebar">
+          <li>
+            <a href="#help">Help</a>
+          </li>
+          <li>
+            <a href="#setgroup">Set operations</a>
+            <ul class="nav nav-stacked">
+              <li>
+                <a href="#sets">Multi-set queries</a>
+              </li>
+              <li>
+                <a href="#set">Single-set operations</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#filegroup">File operations</a>
+            <ul class="nav nav-stacked">
+              <li>
+                <a href="#files">Multi-file queries</a>
+              </li>
+              <li>
+                <a href="#file">Single-file operations by name</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#itemgroup">Object operations</a>
+            <ul class="nav nav-stacked">
+              <li>
+                <a href="#items">Multi-item operations</a>
+              </li>
+              <li>
+                <a href="#item">Single-item operations by Id</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#placegroup">Geo-location operations</a>
+            <ul class="nav nav-stacked">
+              <li>
+                <a href="#places">Location queries</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#iterationgroup">Iterations</a>
+            <ul class="nav nav-stacked">
+              <li>
+                <a href="#iteration">Auto-iteration</a>
+              </li>
+              <li>
+                <a href="#reset">Reset per-session cursor</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#aggregationgroup">Aggregations</a>
+            <ul class="nav nav-stacked">
+              <li>
+                <a href="#count">Count</a>
+              </li>
+              <li>
+                <a href="#max">Max</a>
+              </li>
+              <li>
+                <a href="#min">Min</a>
+              </li>
+              <li>
+                <a href="#sum">Sum</a>
+              </li>
+              <li>
+                <a href="#avg">Avg</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </body>
 
-</html>
+  </html>
