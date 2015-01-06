@@ -103,24 +103,70 @@
             Examples
           </h1>
           <hr>
+          <div id="objquery" class="container">
+            <h2>
+              Demo of object queries
+            </h2>
+            <h3 id="listsets">
+              List all sets
+            </h3>
+            <pre><strong>GET</strong> https://backpack.ddns.net/store/sets</pre>
+            <p>
+              Result:
+            </p>
+            <div class="alert alert-success">
+              [{"name":"db-qm.system.indexes"},{"name":"db-qm.dogs"}]
+            </div>
+            <br>
+            <h3 id="listitems">
+              List all items in the set of "dogs"
+            </h3>
+            <pre><strong>GET</strong> https://backpack.ddns.net/store/set/dogs/items</pre>
+            <p>
+              Result:
+            </p>
+            <div class="alert alert-success">
+              [{"_id":"54a0fed18cd70f51312bc8da","name":"mitang","breed":"border colllie","weight":45,"birthday":"2010-4-1"},{"_id":"54a0fed18cd70f51312bc8db","name":"keke","breed":"papillion","weight":7,"birthday":"2006-5-10"}]
+            </div>
+            <br>
+            <h3 id="useparams">
+              Get the second youngest dog using orderby and pagination
+            </h3>
+            <pre><strong>GET</strong> https://backpack.ddns.net/store/set/dogs/items?orderby=birthday&desc=1&page=1&per_page=1</pre>
+            <p>
+              Result:
+            </p>
+            <div class="alert alert-success">
+              [{"_id":"54a0fed18cd70f51312bc8db","name":"keke","breed":"papillion","weight":7,"birthday":"2006-5-10"}]
+            </div>
+            <br>
+            <h3 id="useagg">
+              Get the average weight for each breed
+            </h3>
+            <pre><strong>GET</strong> https://backpack.ddns.net/store/set/dogs/avg?prop=weight&groupby=breed</pre>
+            <p>
+              Result:
+            </p>
+            <div class="alert alert-success">
+              [{"_id":"border colllie","value":45},{"_id":"papillion","value":7}]
+            </div>
+            <br>
+          </div>
+          <hr>
           <div id="geoquery" class="container">
             <h2>
-              Demo of Geo query
+              Demo of Geo queries
             </h2>
-            <h3>
+            <h3 id="addlocations">
               Add locations to the set of "washingtoncities":
             </h3>
-            <pre>
-              <strong>PUT</strong> https://backpack.ddns.net/store/set/washingtoncities/places
-              <strong>BODY:</strong> [{"name":"vancouver","loc":{"type": "Point", "coordinates": [ -123.1, 49.25 ] }}, ...]
-            </pre>
+            <pre><strong>PUT</strong> https://backpack.ddns.net/store/set/washingtoncities/places
+<strong>BODY</strong> [{"name":"vancouver","loc":{"type": "Point", "coordinates": [ -123.1, 49.25 ] }}, ...]</pre>
             <br>
-            <h3>
+            <h3 id="listlocations">
               Query all locations in the set of "washingtoncities":
             </h3>
-            <pre>
-              <strong>GET</strong> https://backpack.ddns.net/store/set/washingtoncities/places
-            </pre>
+            <pre><strong>GET</strong> https://backpack.ddns.net/store/set/washingtoncities/places</pre>
             <p>
               Result:
             </p>
@@ -128,13 +174,11 @@
               [{"_id":"54a34de1773ba0ba41111180","name":"vancouver","loc":{"type":"Point","coordinates":[-123.1,49.25]}},{"_id":"54a34de1773ba0ba41111181","name":"tacoma","loc":{"type":"Point","coordinates":[-122.4594,47.2414]}},{"_id":"54a34de1773ba0ba41111182","name":"kirkland","loc":{"type":"Point","coordinates":[-122.1917,47.6858]}},{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
             </div>
             <br>
-            <h3>
+            <h3 id="querylocations">
               Query locations within 10km of bellevue ([ -122.1667, 47.6 ]):
             </h3>
-            <pre>
-              <strong>POST</strong> https://backpack.ddns.net/store/set/washingtoncities/places
-              <strong>BODY:</strong> {"loc":{"$near":{"$geometry":{"type": "Point", "coordinates": [ -122.1667, 47.6 ] }, "$maxDistance":10000}}}
-            </pre>
+            <pre><strong>POST</strong> https://backpack.ddns.net/store/set/washingtoncities/places
+<strong>BODY</strong> {"loc":{"$near":{"$geometry":{"type": "Point", "coordinates": [ -122.1667, 47.6 ] }, "$maxDistance":10000}}}</pre>
             <p>Result:</p>
             <div class="alert alert-success">
               [{"_id":"54a34de1773ba0ba41111182","name":"kirkland","loc":{"type":"Point","coordinates":[-122.1917,47.6858]}},{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
@@ -148,13 +192,34 @@
             <h3>
               Query location with name starting with "red":
             </h3>
-            <pre>
-              <strong>POST</strong> https://backpack.ddns.net/store/set/washingtoncities/places
-              <strong>BODY:</strong> {"name": {"$regex": "^red.*"}} Result: [{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
-            </pre>
+            <pre><strong>POST</strong> https://backpack.ddns.net/store/set/washingtoncities/places
+<strong>BODY</strong> {"name": {"$regex": "^red.*"}} Result: [{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]</pre>
             <p>Result:</p>
             <div class="alert alert-success">
               [{"_id":"54a34de1773ba0ba41111183","name":"redmond","loc":{"type":"Point","coordinates":[-122.1239,47.6694]}}]
+            </div>
+          </div>
+          <div id="fileop" class="container">
+            <h2>
+              Demo of file operations
+            </h2>
+            <h3 id="uploadfile">
+              Upload a file to any set (e.g.fs)
+            </h3>
+            <pre><strong>POST</strong> https://backpack.ddns.net/store/set/fs/file/ssh.zip
+<strong>FILE</strong> ssh.zip
+<strong>GET</strong> https://backpack.ddns.net/store/set/fs/files</pre>
+            <p>Result:</p>
+            <div class="alert alert-success">
+              [{"_id":"549fafaffb7e8ee720aec2bc","filename":"ssh.zip","contentType":"binary/octet-stream","length":6419285,"chunkSize":261120,"uploadDate":"2014-12-28T07:22:28.384Z","aliases":null,"metadata":null,"md5":"e3ef233f4f59239760b859e9815f3be4"}]
+            </div>
+            <h3 id="downloadfile">
+              Download a file from any set (e.g.fs)
+            </h3>
+            <pre><strong>GET</strong> https://backpack.ddns.net/store/set/fs/file/ssh.zip</pre>
+            <p>Result:</p>
+            <div class="alert alert-success">
+              File content is retrieved
             </div>
           </div>
         </div>
@@ -168,10 +233,49 @@
             <a href="#examples">Examples</a>
             <ul class="nav nav-stacked">
               <li>
-                <a href="#geoquery">Geo-location query example</a>
+                <a href="#objquery">General object query examples</a>
+                <ul class="nav nav-stacked">
+                  <li>
+                    <a href="#listsets">List all sets</a>
+                  </li>
+                  <li>
+                    <a href="#listitems">List all items in a set</a>
+                  </li>
+                  <li>
+                    <a href="#useparams">Use params in query</a>
+                  </li>
+                  <li>
+                    <a href="#useagg">Use aggregation query</a>
+                  </li>
+                </ul>
               </li>
               <li>
-                <a href="#regquery">Regular expression query example</a>
+                <a href="#geoquery">Geo-location query examples</a>
+                <ul class="nav nav-stacked">
+                  <li>
+                    <a href="#addlocations">Add locations</a>
+                  </li>
+                  <li>
+                    <a href="#listlocations">List all locations</a>
+                  </li>
+                  <li>
+                    <a href="#querylocations">Query locations</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#regquery">Regular expression query examples</a>
+              </li>
+              <li>
+                <a href="#fileop">File operation examples</a>
+                <ul class="nav nav-stacked">
+                  <li>
+                    <a href="#uploadfile">Upload file</a>
+                  </li>
+                  <li>
+                    <a href="#downloadfile">Download file</a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>
