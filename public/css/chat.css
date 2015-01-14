@@ -1,0 +1,262 @@
+/* Fix user-agent */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, input {
+  font-family:
+  "HelveticaNeue-Light",
+  "Helvetica Neue Light",
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  "Lucida Grande",
+  sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  word-wrap: break-word;
+}
+
+/* Pages */
+
+.pages {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+/* Login Page */
+
+.login.page {
+  background-color: #000;
+}
+
+.login.page .form {
+  height: 100px;
+  margin-top: -100px;
+  position: fixed;
+
+  text-align: center;
+  top: 35%;
+  width: 100%;
+}
+
+.login.page .form .usernameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.login.page .form .roomnameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.login.page .title {
+  font-size: 200%;
+}
+
+.login.page .usernameInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.login.page .title, .login.page .usernameInput {
+  color: #fff;
+  font-weight: 100;
+}
+
+.login.page .roomnameInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.login.page .title, .login.page .roomnameInput {
+  color: #fff;
+  font-weight: 100;
+}
+
+/* Chat page */
+
+.chat.page {
+  display: none;
+}
+
+/* Font */
+
+.messages {
+  font-size: 150%;
+}
+
+.datetime {
+  font-size: 80%;
+  color: #339933;
+}
+
+.messageType {
+  font-size: 80%;
+  color: #cc66ff;
+}
+
+.users {
+  font-size: 200%;
+}
+
+.log {
+  color: gray;
+  font-size: 70%;
+  margin: 5px;
+  text-align: center;
+}
+
+/* Messages */
+
+.chatArea {
+  height: 100%;
+  padding-bottom: 60px;
+}
+
+.userArea{
+  height: 100%;
+  padding-bottom: 60px;
+  position: fixed;
+}
+
+.messages {
+  height: 100%;
+  margin: 0;
+  padding: 10px 20px 10px 20px;
+}
+
+.users {
+  height: 100%;
+  margin: 0;
+  padding: 10px 20px 10px 20px;
+}
+
+.message.typing .messageBody {
+  color: gray;
+}
+
+.message .messageBody {
+  word-wrap: break-word;
+}
+
+.username {
+  font-weight: 700;
+  overflow: hidden;
+  padding-right: 15px;
+  text-align: right;
+}
+
+.username:hover {
+  background: #f0f0f0;
+}
+
+/* Input */
+
+.form-control {
+  bottom: 0;
+  height: 60px;
+  left: 0px;
+  outline: none;
+  padding-left: 10px;
+  position: absolute;
+  right: 0px;
+  width: 100%;
+}
+
+.inputMessage {
+  font-size: 100%;
+  border: 5px;
+  resize: none;
+}
+
+.privateMessage {
+  font-size: 100%;
+  border: 2px;
+  resize: none;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+.dropdown-menu {
+  display: block;
+  position: static;
+  margin-bottom: 5px;
+}
+
+#contextMenu {
+  position: absolute;
+  display:none;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn-1 {
+  border: 3px solid #fff;
+  padding: 25px 80px;
+  margin: 15px 30px;
+  color: #fff;
+}
+
+.btn-1a:hover,
+.btn-1a:active {
+  color: #000;
+  background: #fff;
+}
+
+.navbar .navbar-fixed-top {
+  height: 50px
+}

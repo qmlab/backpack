@@ -4,6 +4,7 @@ var express = require('express')
 , compress = require('compression')
 , path = require('path')
 , mailer = require('nodemailer')
+, chatserver = require('./chatserver.js')
 
 var app = express()
 
@@ -84,4 +85,10 @@ app.post('/feedback', function(req, res) {
   });
 })
 
-app.listen(nconf.get('port'))
+app.get('/chat', function(req, res) {
+  res.render('chat.ejs')
+})
+
+var server = app.listen(nconf.get('port'))
+
+chatserver.start(server)

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QMChat</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="/js/socket.io.js"></script>
+  <script src="/js/bootbox.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/chat.js"></script>
+
+  <ul class="pages">
+    <li id="chat_page" class="chat page">
+      <div class="navbar navbar-fixed-top navbar-default">
+        <div class="navbar-header"><a class="navbar-brand">QM Chat</a></div>
+      </div>
+      <div class="row" style="padding-top:50px">
+        <div class="col-xs-12 col-md-8">
+          <div class="chatArea">
+            <ul class="messages" id="publicMessages"></ul>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="userArea">
+            <h3>Users:</h3>
+            <ul class="users"></ul>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container">
+          <textarea class="inputMessage form-control" placeholder="(Ctrl+Enter to say)"></textarea>
+        </div>
+      </footer>
+    </li>
+    <li class="login page">
+      <div class="form">
+        <h3 class="title">Your Name:</h3>
+        <input class="usernameInput" type="text" maxlength="14" />
+        <br>
+        <br>
+        <h3 class="title">Room Name:</h3>
+        <input class="roomnameInput" type="text" maxlength="14" />
+        <br>
+        <br>
+        <button id="enterRoom" type="submit" class="btn btn-1 btn-1a">Enter</button>
+      </div>
+    </li>
+  </ul>
+  <div id="contextMenu" class="dropdown clearfix">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+      <li><a tabindex="-1" id="sendMsg" href="#">Send message</a></li>
+      <li><a tabindex="-1" href="#">Voice chat</a></li>
+      <li><a tabindex="-1" href="#">Video chat</a></li>
+    </ul>
+  </div>
+
+  <div class="modal fade" id="privateChannel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="privateMessagesTitle">Private Chat</h4>
+        </div>
+        <div class="modal-body">
+          <ul class="messages" id="privateMessages"></ul>
+          <div class="container">
+            <textarea class="privateMessage form-control" placeholder="(Ctrl+Enter to whisper)"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="sendPrivateMsgBtn" class="btn btn-primary">Send</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
