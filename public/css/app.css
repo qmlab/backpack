@@ -33,7 +33,7 @@
   color: #999;
   border-left: 2px solid transparent;
   padding: 4px 20px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -42,6 +42,13 @@
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 30px;
+  font-size: 14px;
+}
+
+.bs-docs-sidebar .nav .nav .nav>li>a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 60px;
   font-size: 12px;
 }
 
