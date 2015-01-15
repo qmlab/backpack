@@ -391,4 +391,28 @@ $(function() {
   $('body').mouseover(function() {
     $(document).prop('title', defaultTitle)
   })
+
+  $('#about').click(function(e) {
+    bootbox.dialog({
+      message: '<b>TeamChat <i>Version 1.0</i></b><br><br> by QM<br> @ 2015',
+      title: 'About TeamChat',
+      onEscape: function() {},
+      show: true,
+      buttons: {
+        success: {
+          label: 'OK',
+          className: 'btn-success',
+          callback: function() {}
+        }
+      }
+    })
+  })
+
+  $('#quit').click(function(e) {
+    bootbox.confirm('Are you sure to quit?', function(result) {
+      if (true === result) {
+        window.location.reload(true)
+      }
+    })
+  })
 });
