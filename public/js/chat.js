@@ -14,7 +14,6 @@ $(function() {
   var $users = $('.users'); // User area
   var $inputMessage = $('.inputMessage'); // Input message input box
   var $privateMessage = $('.privateMessage')
-  var $currentInput = $usernameInput.focus();
 
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
@@ -34,7 +33,7 @@ $(function() {
   , connected = false
   , typing = false
   , lastTypingTime
-  , defaultTitle = 'QMChat'
+  , defaultTitle = 'TeamChat'
 
   var socket = io.connect(GetBaseUrl());
 
@@ -174,7 +173,7 @@ $(function() {
     AddElement($messageDiv, $messages, $window, options);
 
     if (data.username !== username && !data.typing) {
-      $(document).prop('title', 'New Message~~')
+      ScrollTitle("You have new messages ")
     }
   }
 
@@ -279,11 +278,6 @@ $(function() {
 
   // Click events
 
-  // Focus input when clicking anywhere on login page
-  $loginPage.click(function () {
-    //$currentInput.focus();
-  });
-
   // Focus input when clicking on the message input's border
   $inputMessage.click(function () {
     $inputMessage.focus();
@@ -301,7 +295,7 @@ $(function() {
     connected = true;
     $loginPage.fadeOut();
     $chatPage.show();
-    $currentInput = $inputMessage.focus();
+    $inputMessage.focus();
 
     // Display the welcome message
     var message = "Welcome " + data.username + " to " + "Room \"" + data.roomname + "\"";
@@ -350,7 +344,9 @@ $(function() {
 
   // Show and hide context menu
   $('ul.users').on('contextmenu', '.username', showContextMenu);
+  $('ul.users').on('click', '.username', showContextMenu);
   $('ul.messages').on('contextmenu', '.username', showContextMenu);
+  $('ul.messages').on('click', '.username', showContextMenu);
 
   function showContextMenu(e) {
     if ($(this).text() !== username) {
@@ -388,5 +384,29 @@ $(function() {
 
   $('body').mouseover(function() {
     $(document).prop('title', defaultTitle)
+  })
+
+  $('#about').click(function(e) {
+    bootbox.dialog({
+      message: '<b>TeamChat <i>Version 1.0</i></b><br><br> by QM<br> @ 2015',
+      title: 'About TeamChat',
+      onEscape: function() {},
+      show: true,
+      buttons: {
+        success: {
+          label: 'OK',
+          className: 'btn-success',
+          callback: function() {}
+        }
+      }
+    })
+  })
+
+  $('#quit').click(function(e) {
+    bootbox.confirm('Are you sure to quit?', function(result) {
+      if (true === result) {
+        window.location.reload(true)
+      }
+    })
   })
 });
