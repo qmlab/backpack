@@ -275,7 +275,9 @@ $(function() {
   }
 
   $inputMessage.on('input', function() {
-    updateTyping();
+    if ($inputMessage.val().length > 1) {
+      updateTyping();
+    }
   });
 
   // Click events
