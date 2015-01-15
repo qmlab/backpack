@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QMChat</title>
+  <title>TeamChat</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chat.css">
 </head>
@@ -18,15 +18,15 @@
   <ul class="pages">
     <li id="chat_page" class="chat page">
       <div class="navbar navbar-fixed-top navbar-default">
-        <div class="navbar-header"><a class="navbar-brand">QM Chat</a></div>
+        <div class="navbar-header"><a class="navbar-brand">Team Chat</a></div>
       </div>
       <div class="row" style="padding-top:50px">
-        <div class="col-xs-12 col-md-8">
+        <div class="col-xs-12 col-sm-12 col-md-8">
           <div class="chatArea">
             <ul class="messages" id="publicMessages"></ul>
           </div>
         </div>
-        <div class="col-xs-6 col-md-4">
+        <div class="hidden-xs hidden-sm col-md-4">
           <div class="userArea">
             <h3>Users:</h3>
             <ul class="users"></ul>
@@ -35,7 +35,7 @@
       </div>
       <footer class="footer">
         <div class="container">
-          <textarea class="inputMessage form-control" placeholder="(Ctrl+Enter to say)"></textarea>
+          <textarea class="inputMessage form-control" placeholder="Say something..."></textarea>
         </div>
       </footer>
     </li>
@@ -71,7 +71,7 @@
         <div class="modal-body">
           <ul class="messages" id="privateMessages"></ul>
           <div class="container">
-            <textarea class="privateMessage form-control" placeholder="(Ctrl+Enter to whisper)"></textarea>
+            <textarea class="privateMessage form-control" placeholder="Whisper something..."></textarea>
           </div>
         </div>
         <div class="modal-footer">

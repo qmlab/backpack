@@ -34,7 +34,7 @@ $(function() {
   , connected = false
   , typing = false
   , lastTypingTime
-  , defaultTitle = 'QMChat'
+  , defaultTitle = 'TeamChat'
 
   var socket = io.connect(GetBaseUrl());
 
@@ -350,7 +350,9 @@ $(function() {
 
   // Show and hide context menu
   $('ul.users').on('contextmenu', '.username', showContextMenu);
+  $('ul.users').on('click', '.username', showContextMenu);
   $('ul.messages').on('contextmenu', '.username', showContextMenu);
+  $('ul.messages').on('click', '.username', showContextMenu);
 
   function showContextMenu(e) {
     if ($(this).text() !== username) {
