@@ -36,6 +36,8 @@
               <li>
                 <a href="#" id="quit">Quit</a>
               </li>
+              <li class='chatoption'>
+              </li>
             </ul>
           </div>
         </div>
@@ -55,6 +57,17 @@
       </div>
       <footer class="footer">
         <div class="container">
+        <div class="control-panel">
+          <span class="label label-default" id="callStatus">In Call</span>
+          <button type="button" class="btn btn-default chatoption" id="stop">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-default chatoption" id="stop">
+            <span class="glyphicon glyphicon-stop"></span>
+          </button>
+          <audio class="them" autoplay="true"></video>
+          <audio class="me rtc-pip" autoplay="true" muted="true"></video>
+        </div>
           <textarea class="inputMessage form-control" placeholder="Say something..."></textarea>
         </div>
       </footer>
@@ -78,7 +91,7 @@
   <div id="contextMenu" class="dropdown clearfix">
     <ul class="dropdown-menu context-dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
       <li><a tabindex="-1" id="sendMsg" href="#">Send message</a></li>
-      <li><a tabindex="-1" href="#">Voice chat</a></li>
+      <li><a tabindex="-1" id="voiceChat" href="#">Voice chat</a></li>
       <li><a tabindex="-1" href="#">Video chat</a></li>
     </ul>
   </div>
