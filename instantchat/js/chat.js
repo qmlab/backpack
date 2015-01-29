@@ -5,9 +5,6 @@ $(function() {
   '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
   '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
   ];
-  var CHUNKSIZE = 1024;
-  var CHUNKBUFFERSIZE = 100;
-  var mime = 'text/html'
 
   // Initialize varibles
   var $window = $(window);
