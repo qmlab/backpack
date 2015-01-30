@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InterChat</title>
+  <title>InstantChat</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="//www.bootstrap-switch.org/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
   <link rel="stylesheet" href="css/chat.css">
@@ -17,14 +17,16 @@
   <script src="/js/bootbox.js"></script>
   <script src="/js/common.js"></script>
   <script src="/js/config.js"></script>
-  <script src="/js/p2p.js"></script>
+  <script src="/js/signalingChannel.js"></script>
+  <script src="/js/dataChannel.js"></script>
+  <script src="/js/mediaChannel.js"></script>
   <script src="/js/chat.js"></script>
 
   <ul class="pages">
     <li id="chat_page" class="chat page">
       <div class="navbar navbar-fixed-top navbar-default">
         <div class="navbar-header">
-            <a class="navbar-brand">InterChat</a>
+            <a class="navbar-brand">InstantChat</a>
             <a href="#" class="glyphicon glyphicon-facetime-video sessionType-icon videoIcon" data-toggle="modal" data-target="#videoChannel"></a>
             <a href="#" class="glyphicon glyphicon-volume-up sessionType-icon audioIcon"></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -77,9 +79,6 @@
           <button type="button" class="btn btn-danger chatoption stopVideo">
             <span class="glyphicon glyphicon-stop"></span>
           </button>
-          <button type="button" class="btn btn-default chatoption" id="testData">
-            <span class="glyphicon glyphicon-play-circle"></span>
-          </button>
         </div>
       </div>
       <footer class="footer">
@@ -109,7 +108,6 @@
       <li><a tabindex="-1" id="sendMsg" href="#">Send message</a></li>
       <li><a tabindex="-1" id="startAudio" href="#">Voice chat</a></li>
       <li><a tabindex="-1" id="startVideo" href="#">Video chat</a></li>
-      <li><a tabindex="-1" id="testP2p" href="#">Test</a></li>
     </ul>
   </div>
 

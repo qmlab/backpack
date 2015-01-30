@@ -4,57 +4,59 @@ var express = require('express')
 , compress = require('compression')
 , path = require('path')
 , mailer = require('nodemailer')
+, vhost = require('vhost')
 , chatserver = require('./chatserver.js')
 
-var app = express()
-
-// For rendering views
-app.set('views', __dirname + '/public')
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'ejs');
-
-// For static html
-app.use(express.static(path.join(__dirname, 'public')));
 
 // First consider commandline arguments and environment variables, respectively.
 nconf.argv().env();
 
 nconf.file({ file: 'config.json' });
 
-// Init body-parser
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
-app.use(bodyParser.json({
-}))
-
 // Init compression management
 if (nconf.get('server:compress')) {
-  app.use(compress())
+  backpack.use(compress())
 }
 
+// backpack web app
+var backpack = express()
 
-app.get('/', function(req, res) {
+// For rendering views
+backpack.set('views', __dirname + '/backpack')
+backpack.engine('html', require('ejs').renderFile);
+backpack.set('view engine', 'ejs');
+
+// For static html
+backpack.use(express.static(path.join(__dirname, 'backpack')));
+
+// Init body-parser
+backpack.use(bodyParser.urlencoded({
+  extended: true
+}))
+backpack.use(bodyParser.json({
+}))
+
+backpack.get('/', function(req, res) {
   res.redirect(301, '/home')
 })
 
-app.get('/home', function(req, res) {
+backpack.get('/home', function(req, res) {
   res.render('home.html')
 })
 
-app.get('/tutorial', function(req, res) {
+backpack.get('/tutorial', function(req, res) {
   res.render('tutorial.html')
 })
 
-app.get('/documentation', function(req, res) {
+backpack.get('/documentation', function(req, res) {
   res.render('documentation.html')
 })
 
-app.get('/contact', function(req, res) {
+backpack.get('/contact', function(req, res) {
   res.render('contact.html')
 })
 
-app.post('/feedback', function(req, res) {
+backpack.post('/feedback', function(req, res) {
   var username = nconf.get('gmail_user')
   var passwd = nconf.get('gmail_password')
   // Use Smtp Protocol to send Email
@@ -85,10 +87,37 @@ app.post('/feedback', function(req, res) {
   });
 })
 
-app.get('/chat', function(req, res) {
+
+// chat web app
+var chat = express()
+
+// For rendering views
+chat.set('views', __dirname + '/instantchat')
+chat.engine('html', require('ejs').renderFile);
+chat.set('view engine', 'ejs');
+
+// For static html
+chat.use(express.static(path.join(__dirname, 'instantchat')));
+
+// Init body-parser
+chat.use(bodyParser.urlencoded({
+  extended: true
+}))
+chat.use(bodyParser.json({
+}))
+
+chat.get('/', function(req, res) {
   res.render('chat.ejs')
 })
 
-var server = app.listen(nconf.get('port'))
+
+//Vhost app
+var app = module.exports = express()
+app.use(vhost('backpack.ddns.net', backpack))
+app.use(vhost('instantchat.ddns.net', chat))
+
+if (!module.parent) {
+  var server = app.listen(nconf.get('port'))
+}
 
 chatserver.start(server)
