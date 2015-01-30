@@ -34,29 +34,55 @@ $(function() {
   var connected = false
   , typing = false
   , lastTypingTime
-  , defaultTitle = 'InterChat'
+  , defaultTitle = 'InstantChat'
   , newMsgCancellationToken = { isCancelled: false }
   , username
   , roomname
 
   var socket = io.connect(getBaseUrl());
 
-  // Set up RTC connection
-  signalingChannel = new SignalingChannel(socket)
+  // Set up RTC connections
+  if (!!configs) {
+    initConfigs(null)
+  }
+  var dataChannel = new DataChannel(window.configs, window.constraints, socket)
+  var mediaChannel = new MediaChannel(window.configs, window.constraints, socket)
+  mediaChannel.videoNode = videoNode
+  mediaChannel.myVideoNode = myVideoNode
+  mediaChannel.audioNode = audioNode
 
-  onchannelopen = function() {
+  dataChannel.onchannelopen = function() {
     console.log('channel onopen')
   }
-  onchannelmessage = function (evt) {
-    alert(evt.data)
+
+  var chunks = [];
+  var blobs = [];
+  dataChannel.onchannelmessage = function (event) {
+    var data = JSON.parse(event.data);
+    var blobCount = 0;
+    chunks.push(data.message); // pushing chunks in array
+    if (chunks.length > CHUNKBUFFERSIZE || data.last) {
+      blobs.push(new Blob([chunks], {type: mime}))
+      chunks = []
+      console.log('created blob ' + blobCount)
+      blobCount++
+    }
+
+    if (data.last) {
+      var finalBlob = new Blob(blobs, {type: mime})
+      console.log('final blob created')
+      saveToDisk(URL.createObjectURL(finalBlob), data.filename);
+      blobs = []
+    }
   }
-  onchannelclose = function(e) {
+
+  dataChannel.onchannelclose = function(e) {
     console.log('channel onclose:' + e)
   }
-  onchannelerror = function(e) {
+  dataChannel.onchannelerror = function(e) {
     console.error('channel error:' + e)
   }
-  onVideoStreamopen = function(evt) {
+  mediaChannel.onVideoStreamopen = function(evt) {
     $('.videoIcon').show()
     $('.videos').show()
     $('.stopVideo').show()
@@ -64,21 +90,21 @@ $(function() {
     $('.callStatus').show()
     $videoModal.modal('show')
   }
-  onVideoStreamclose = function() {
+  mediaChannel.onVideoStreamclose = function() {
     $('.videoIcon').hide()
     $('.videos').hide()
     $('.stopVideo').hide()
     $('.callStatus').hide()
     $videoModal.modal('hide')
   }
-  onAudioStreamopen = function(evt) {
+  mediaChannel.onAudioStreamopen = function(evt) {
     $('.audioIcon').show()
     $('.stopAudio').show()
     $('.audioControls').show()
     $('.callStatus').text('In Audio Call')
     $('.callStatus').show()
   }
-  onAudioStreamclose = function() {
+  mediaChannel.onAudioStreamclose = function() {
     $('.audioIcon').hide()
     $('.stopAudio').hide()
     $('.audioControls').hide()
@@ -116,6 +142,13 @@ $(function() {
     else {
       bootbox.alert('Error: Invalid user name or room name')
     }
+  }
+
+  function sendInfo (toUser, msg) {
+    socket.emit('new info', {
+      toUser: toUser,
+      msg: msg
+    })
   }
 
   // Sends a chat message
@@ -387,6 +420,10 @@ $(function() {
     addChatMessage(data);
   });
 
+  socket.on('new info', function (data) {
+    log(data.message)
+  })
+
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
     log(data.username + ' has joined');
@@ -417,8 +454,47 @@ $(function() {
   // Show and hide context menu
   $('ul.users').on('contextmenu', '.username', showContextMenu);
   $('ul.users').on('click', '.username', showContextMenu);
+  $('ul.users').on('dragover', '.username', dragIgnoreDefault);
+  $('ul.users').on('dragenter', '.username', dragIgnoreDefault);
+  $('ul.users').on('drop', '.username', dragDrop);
   $('ul.messages').on('contextmenu', '.username', showContextMenu);
   $('ul.messages').on('click', '.username', showContextMenu);
+  $('ul.messages').on('dragover', '.username', dragIgnoreDefault);
+  $('ul.messages').on('drop', '.username', dragDrop);
+
+  function dragIgnoreDefault(e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  function dragDrop(e) {
+    var toUser = $(this).text()
+    if(e.originalEvent.dataTransfer){
+      if (toUser !== username) {
+        if(e.originalEvent.dataTransfer.files.length) {
+          e.preventDefault();
+          e.stopPropagation();
+          handleFiles(e.originalEvent.dataTransfer.files, toUser);
+        }
+      }
+    }
+  }
+
+  function handleFiles(files, user) {
+    $(files).each(function(index, file) {
+      var msg = 'Sending file "' + file.name + '" to "' + user + '". FileSize: ' + file.size;
+      log(msg)
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        dataChannel.p2pOptions.to = user
+        dataChannel.p2pOptions.from = username
+        dataChannel.p2pOptions.isCaller = true
+        sendInfo(toUser, username + ' is sending "' + file.name + '"')
+        dataChannel.sendFile(e, file.name, log)
+      }
+      reader.readAsDataURL(file)
+    })
+  }
 
   function showContextMenu(e) {
     if ($(this).text() !== username) {
@@ -444,41 +520,14 @@ $(function() {
 
   $('#startVideo').click(function(e) {
     var toUser = $contextMenu.data('toUser')
-    p2pOptions.audio = true
-    p2pOptions.video = true
-    p2pOptions.to = toUser
-    p2pOptions.from = username
-    p2pOptions.isCaller = true
-    p2pOptions.isMedia = true
-    onVideoStreamopen()
-    start()
+    sendInfo(toUser, username + ' has initiated a video chat. Please allow the use of camera.')
+    mediaChannel.startVideo(toUser, username)
   })
 
   $('#startAudio').click(function(e) {
     var toUser = $contextMenu.data('toUser')
-    p2pOptions.audio = true
-    p2pOptions.video = false
-    p2pOptions.to = toUser
-    p2pOptions.from = username
-    p2pOptions.isCaller = true
-    p2pOptions.isMedia = true
-    onAudioStreamopen()
-    start()
-  })
-
-  $('#testP2p').click(function(e) {
-    var toUser = $contextMenu.data('toUser')
-    p2pOptions.to = toUser
-    p2pOptions.from = username
-    p2pOptions.isCaller = true
-    onchannelopen = function() {
-      if (p2pOptions.isCaller)
-      {
-        $('#testData').show()
-      }
-      console.log('channel onopen')
-    }
-    start()
+    sendInfo(toUser, username + ' has initiated an audio chat. Please allow the use of microphone.')
+    mediaChannel.startAudio(toUser, username)
   })
 
   $('#sendPrivateMsgBtn').click(function(e) {
@@ -510,8 +559,8 @@ $(function() {
 
   $('#about').click(function(e) {
     bootbox.dialog({
-      message: '<b>InterChat <i>Version 1.0</i></b><br><br> by QM<br> @ 2015',
-      title: 'About InterChat',
+      message: '<b>InstantChat <i>Version 1.0</i></b><br><br> by QM<br> @ 2015',
+      title: 'About InstantChat',
       onEscape: function() {},
       show: true,
       buttons: {
@@ -534,24 +583,27 @@ $(function() {
 
   // Stop the stream for p2p
   $('.stopVideo').click(function(e) {
-    if(!!localStream) {
-      myVideoNode.pause()
+    var toUser = mediaChannel.getPeer()
+    if (!!toUser) {
+      sendInfo(toUser, username + ' has stopped video chat.')
+      mediaChannel.stopVideo()
     }
-    if(!!remoteStream) {
-      videoNode.pause()
-    }
-    stopSession()
-    onVideoStreamclose()
   })
 
   $('.stopAudio').click(function(e) {
-    audioNode.pause()
-    stopSession()
-    onAudioStreamclose()
+    var toUser = mediaChannel.getPeer()
+    if (!!toUser) {
+      sendInfo(toUser, username + ' has stopped audio chat.')
+      mediaChannel.stopAudio()
+    }
   })
 
   $('.mute').on('switchChange.bootstrapSwitch', function(evt, state) {
-    localStream.getAudioTracks()[0].enabled = state
+    var toUser = mediaChannel.getPeer()
+    if (!!toUser) {
+      sendInfo(toUser, username + ' has muted its mic')
+      mediaChannel.muteMe()
+    }
   })
 
   /*
@@ -588,11 +640,4 @@ $(function() {
     }
   })
   */
-
-  $('#testData').click(function(e) {
-    sendChatMessage('Testing!', function() {
-      stopSession()
-      $('#testData').hide()
-    })
-  })
 });

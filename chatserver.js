@@ -4,7 +4,7 @@ module.exports.start = function(server) {
   // users which are currently connected to the chat
   var users = {};
   var sockets = {};
-  console.log('interchat server started')
+  console.log('instantchat server started')
 
   io.sockets.on('connection', function (socket) {
     var addedUser = false;
@@ -25,6 +25,7 @@ module.exports.start = function(server) {
         socket.join(data.roomname);
         socket.username = data.username;
         socket.roomname = data.roomname;
+        console.log(socket.username + ' joined ' + socket.roomname);
 
         users[socket.roomname] = users[socket.roomname] || []
 
@@ -89,6 +90,8 @@ module.exports.start = function(server) {
       if (addedUser) {
         users[socket.roomname].remove(socket.username);
 
+		console.log(socket.username + ' left ' + socket.roomname);
+
         // echo globally that this client has left
         socket.broadcast.to(socket.roomname).emit('user left', {
           username: socket.username,
@@ -99,10 +102,31 @@ module.exports.start = function(server) {
 
     socket.on('send signal', function(data) {
       //console.log('from:' + data.from + ' to:' + data.to)
+      //console.log(JSON.stringify(data))
       if (!!data.to && !!data.from) {
-        sockets[data.to].emit('receive signal', data)
+        sockets[data.to].emit('receive signal ' + data.type || 'general', data)
       }
     })
+
+    // Non-message info
+    socket.on('new info', function (data) {
+      if (typeof data.toUser == 'undefined') {
+        // we tell the client to execute 'new message'
+        socket.broadcast.to(socket.roomname).emit('new info', {
+          username: socket.username,
+          message: data.msg
+        });
+      }
+      else {
+        sockets[data.toUser].emit('new info', {
+          username: socket.username,
+          message: data.msg,
+          toUser: data.toUser
+        })
+      }
+    });
+
+
   });
 
   Array.prototype.remove = function() {
