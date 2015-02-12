@@ -32,9 +32,10 @@ $(function() {
   $('[data-toggle="tooltip"]').tooltip()
 
   i18n.init(function(t) {
-  i18n.setLng('zh', function(t) {
+//  i18n.setLng('zh', function(t) {
 
     $('.pages').i18n()
+    $('.userArea').i18n()
 
     // Variables
     var connected = false
@@ -147,7 +148,7 @@ $(function() {
         });
       }
       else {
-        bootbox.alert('Error: Invalid user name or room name')
+        bootbox.alert(t('Error: Invalid user name or room name'))
         $loginPage.show()
       }
     }
@@ -162,14 +163,14 @@ $(function() {
     function sendPoke(toUser) {
       var elapsed = Date.now() - lastPoke
       if (elapsed > MIN_POKE_INTERVAL) {
-        log('You poked ' + toUser)
+        log(t('You poked ') + toUser)
         socket.emit('new poke', {
           toUser: toUser
         })
         lastPoke = Date.now()
       }
       else {
-        bootbox.alert('Sorry, you are poking too fast!')
+        bootbox.alert(t('Sorry, you are poking too fast!'))
       }
     }
 
@@ -282,7 +283,7 @@ $(function() {
 
       if (data.username !== username && !data.typing) {
         newMsgCancellationToken.isCancelled = false;
-        Common.newMsgTitle("New messages", newMsgCancellationToken)
+        Common.newMsgTitle(t('New messages'), newMsgCancellationToken)
       }
     }
 
@@ -308,7 +309,7 @@ $(function() {
     // Adds the visual chat typing message
     function addChatTyping (data) {
       data.typing = true;
-      data.message = 'is typing';
+      data.message = t('is typing');
       addChatMessage(data);
     }
 
@@ -432,7 +433,7 @@ $(function() {
 
       // Detect browser type and version
       if (!isChrome || parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10) < 29) {
-        log('[Please use Chrome 29+ for video/audio chats and file transfer]', { color: 'orange' })
+        log(t('[Please use Chrome 29+ for video/audio chats and file transfer]'), { color: 'orange' })
       }
 
       // Display the welcome message
@@ -462,20 +463,20 @@ $(function() {
     socket.on('new poke', function (data) {
       var from = data.username
       var to = data.toUser
-      var msg = from + ' has poked you!'
+      var msg = from + t(' has poked you!')
       log(msg)
       alert(msg)
     })
 
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
-      log(data.username + ' has joined');
+      log(data.username + t(' has joined'))
       addUser(data.username, $users)
     });
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
-      log(data.username + ' has left');
+      log(data.username + t(' has left'))
       removeChatTyping(data);
       $('.users > li:contains("' + data.username + '")').remove()
     });
@@ -491,7 +492,7 @@ $(function() {
     });
 
     socket.on('login error', function(e) {
-      bootbox.alert('Error: ' + e.msg)
+      bootbox.alert(t('Error: ') + e.msg)
       $loginPage.show()
     })
 
@@ -519,7 +520,7 @@ $(function() {
             evt.preventDefault();
             evt.stopPropagation();
             filesToSend[toUser] = evt.originalEvent.dataTransfer.files
-            log('initiating file transfer with ' + toUser)
+            log(t('initiating file transfer with ') + toUser)
             socket.emit('start file request', {
               to: toUser
             })
@@ -532,7 +533,7 @@ $(function() {
       var toUser = $contextMenu.data('toUser')
       var files = evt.target.files
       filesToSend[toUser] = files
-      log('initiating file transfer with ' + toUser)
+      log(t('initiating file transfer with ') + toUser)
       socket.emit('start file request', {
         to: toUser
       })
@@ -540,11 +541,11 @@ $(function() {
 
     function handleFiles(files, user) {
       $(files).each(function(index, file) {
-        var msg = 'Sending file "' + file.name + '" to "' + user + '". FileSize: ' + file.size;
+        var msg = t('Sending file "') + file.name + t('" to "') + user + t('". FileSize: ') + file.size;
         log(msg)
         dataChannel.p2pOptions.to = user
         dataChannel.p2pOptions.from = username
-        sendInfo(user, username + ' is sending "' + file.name + '"')
+        sendInfo(user, username + t(' is sending "') + file.name + '"')
         dataChannel.sendFile(file, log)
       })
     }
@@ -573,7 +574,7 @@ $(function() {
 
     $('#startVideo').click(function(e) {
       var toUser = $contextMenu.data('toUser')
-      log('initiating video connection with ' + toUser)
+      log(t('initiating video connection with ') + toUser)
       socket.emit('start video request', {
         to: toUser
       })
@@ -581,7 +582,7 @@ $(function() {
 
     $('#startAudio').click(function(e) {
       var toUser = $contextMenu.data('toUser')
-      log('initiating audio connection with ' + toUser)
+      log(t('initiating audio connection with ') + toUser)
       socket.emit('start audio request', {
         to: toUser
       })
@@ -591,11 +592,11 @@ $(function() {
       if (!!data && !!data.to) {
         var toUser = data.to
         if (data.permitted) {
-          sendInfo(toUser, username + ' has initiated a video chat. Please allow the use of camera.')
+          sendInfo(toUser, username + t(' has initiated a video chat. Please allow the use of camera.'))
           mediaChannel.startVideo(toUser, username)
         }
         else {
-          log('failed to start video with ' + toUser + '. ' + data.message)
+          log(t('failed to start video with ') + toUser + '. ' + data.message)
         }
       }
     })
@@ -604,11 +605,11 @@ $(function() {
       if (!!data && !!data.to) {
         var toUser = data.to
         if (data.permitted) {
-          sendInfo(toUser, username + ' has initiated an audio chat. Please allow the use of microphone.')
+          sendInfo(toUser, username + t(' has initiated an audio chat. Please allow the use of microphone.'))
           mediaChannel.startAudio(toUser, username)
         }
         else {
-          log('failed to start audio with ' + toUser + '. ' + data.message)
+          log(t('failed to start audio with ') + toUser + '. ' + data.message)
         }
       }
     })
@@ -622,7 +623,7 @@ $(function() {
           handleFiles(files, toUser);
         }
         else {
-          log('failed to start file transfer with ' + toUser + '. ' + data.message)
+          log(t('failed to start file transfer with ') + toUser + '. ' + data.message)
         }
       }
     })
@@ -669,8 +670,8 @@ $(function() {
 
     $('#about').click(function(e) {
       bootbox.dialog({
-        message: '<b>InstantChat <i>Version 1.0</i></b><br><br> by QM<br> @ 2015',
-        title: 'About InstantChat',
+        message: t('<b>InstantChat <i>Version 1.0</i></b><br><br> by QM<br> @ 2015'),
+        title: t('About InstantChat'),
         onEscape: function() {},
         show: true,
         buttons: {
@@ -684,7 +685,7 @@ $(function() {
     })
 
     $('#quit').click(function(e) {
-      bootbox.confirm('Are you sure to quit?', function(result) {
+      bootbox.confirm(t('Are you sure to quit?'), function(result) {
         if (true === result) {
           Common.deleteCookie('username')
           Common.deleteCookie('roomname')
@@ -697,7 +698,7 @@ $(function() {
     $('.stopVideo').click(function(e) {
       var toUser = mediaChannel.getPeer()
       if (!!toUser) {
-        sendInfo(toUser, username + ' has stopped video chat.')
+        sendInfo(toUser, username + t(' has stopped video chat.'))
         mediaChannel.stopVideo()
         $('.mute').attr('checked', true)
       }
@@ -706,7 +707,7 @@ $(function() {
     $('.stopAudio').click(function(e) {
       var toUser = mediaChannel.getPeer()
       if (!!toUser) {
-        sendInfo(toUser, username + ' has stopped audio chat.')
+        sendInfo(toUser, username + t(' has stopped audio chat.'))
         mediaChannel.stopAudio()
         $('.mute').attr('checked', true)
       }
@@ -717,9 +718,9 @@ $(function() {
       var toUser = mediaChannel.getPeer()
       if (!!toUser) {
         if (!state) {
-          sendInfo(toUser, username + ' has muted their mic')
+          sendInfo(toUser, username + t(' has muted their mic'))
         } else {
-          sendInfo(toUser, username + ' has unmuted their mic')
+          sendInfo(toUser, username + t(' has unmuted their mic'))
         }
         mediaChannel.muteMe(state)
       }
@@ -751,7 +752,7 @@ $(function() {
         }
       })
 
-    })
+    //})
     }) // End of i18n.init
 
 });
