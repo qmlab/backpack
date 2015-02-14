@@ -92,12 +92,12 @@ backpack.post('/feedback', function(req, res) {
 var chat = express()
 
 // For rendering views
-chat.set('views', __dirname + '/instantchat')
+chat.set('views', __dirname + '/talkyet')
 chat.engine('html', require('ejs').renderFile);
 chat.set('view engine', 'ejs');
 
 // For static html
-chat.use(express.static(path.join(__dirname, 'instantchat')));
+chat.use(express.static(path.join(__dirname, 'talkyet')));
 
 // Init body-parser
 chat.use(bodyParser.urlencoded({
@@ -114,7 +114,7 @@ chat.get('/', function(req, res) {
 //Vhost app
 var app = module.exports = express()
 app.use(vhost('backpack.ddns.net', backpack))
-app.use(vhost('instantchat.ddns.net', chat))
+app.use(vhost('talkyet.ddns.net', chat))
 
 if (!module.parent) {
   var server = app.listen(nconf.get('port'))
