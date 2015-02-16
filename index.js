@@ -114,7 +114,7 @@ chat.get('/', function(req, res) {
 //Vhost app
 var app = module.exports = express()
 app.use(vhost('backpack.ddns.net', backpack))
-app.use(vhost('talkyet.ddns.net', chat))
+app.use(vhost('talkyet.com', chat))
 
 if (!module.parent) {
   var server = app.listen(nconf.get('port'))
