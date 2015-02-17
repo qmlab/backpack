@@ -123,8 +123,8 @@ i18n.init(function(t) {
   })
 
   //Vhost app
-  app.use(vhost('backpack.ddns.net', backpack))
   app.use(vhost('talkyet.com', chat))
+  app.use(vhost('backpack.ddns.net', backpack))
 
   if (!module.parent) {
     var privateKey  = fs.readFileSync('certs/talkyet.key', 'utf8')
