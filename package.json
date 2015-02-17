@@ -1,6 +1,6 @@
 {
-  "name": "qmchat",
-  "version": "0.1.0",
+  "name": "talkyet",
+  "version": "1.0.0",
   "description": "Simple chatter",
   "main": "index.js",
   "author": "QM",
