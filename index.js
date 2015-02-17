@@ -4,11 +4,6 @@ var express = require('express')
 , compress = require('compression')
 , path = require('path')
 , mailer = require('nodemailer')
-, vhost = require('vhost')
-, chatserver = require('./chatserver.js')
-, i18n = require('i18next')
-, fs = require('fs')
-, https = require('https')
 
 
 // First consider commandline arguments and environment variables, respectively.
@@ -90,52 +85,7 @@ backpack.post('/feedback', function(req, res) {
   });
 })
 
-var app = module.exports = express()
-
-//Register Handler
-app.use(i18n.handle)
-
-//Register AppHelper so you can use the translate function inside template
-i18n.registerAppHelper(app)
-
-//Init i18n
-i18n.init(function(t) {
-  // chat web app
-  var chat = express()
-
-  // For rendering views
-  chat.set('views', __dirname + '/talkyet')
-  chat.engine('html', require('ejs').renderFile);
-  chat.set('view engine', 'ejs');
-
-  // For static html
-  chat.use(express.static(path.join(__dirname, 'talkyet')));
-
-  // Init body-parser
-  chat.use(bodyParser.urlencoded({
-    extended: true
-  }))
-  chat.use(bodyParser.json({
-  }))
-
-  chat.get('/', function(req, res) {
-    res.render('chat.ejs')
-  })
-
-  //Vhost app
-  app.use(vhost('talkyet.com', chat))
-  app.use(vhost('backpack.ddns.net', backpack))
-
-  if (!module.parent) {
-    var privateKey  = fs.readFileSync('certs/talkyet.key', 'utf8')
-    var certificate = fs.readFileSync('certs/talkyet.cer', 'utf8')
-    var credentials = {key: privateKey, cert: certificate}
-    var server = https.createServer(credentials, app)
-    var port = nconf.get('port')
-    server.listen(port, function () {
-      console.log('Server listening at port %d', port);
-    })
-
-    chatserver.start(server)
-  }
+var port = nconf.get('port')
+backpack.listen(port, function () {
+  console.log('Server listening at port %d', port);
 })
