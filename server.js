@@ -128,7 +128,7 @@ nobet.engine('html', require('jade').__express);
 nobet.set('view engine', 'jade');
 
 // For static html
-nobet.use(express.static(path.join(__dirname, 'public')));
+nobet.use(express.static(path.join(__dirname, 'nobet')));
 
 // Routing
 nobet.get('/', function(req, res) {
@@ -272,8 +272,13 @@ nobet.route('/total')
 
 /// ============================ vhost =================================
 var app = module.exports = express()
-app.use(vhost('backpack.ddns.net', backpack))
-app.use(vhost('nobet.ddns.net', nobet))
+if (!isDebug) {
+  app.use(vhost('backpack.ddns.net', backpack))
+  app.use(vhost('nobet.ddns.net', nobet))
+}
+else {
+  app.use(vhost('localhost', nobet))
+}
 var server = http.createServer(app)
 var port = nconf.get('port')
 server.listen(port, function() {
