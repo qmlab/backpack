@@ -1,0 +1,302 @@
+[
+    {
+        "_id": "54fe55086a385b8439726b04",
+        "BetItem": {
+            "Id": "8c3ded55-cb3d-45dc-b1d2-b29182ceb3fb",
+            "GameName": "829800",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Arsenal",
+                    "Type": 0
+                },
+                {
+                    "Name": "West_Ham",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 1.4,
+                "Lose": 8,
+                "Draw": 4.5,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-14T15:00:00.000Z",
+            "MatchDate": "2015-03-10T02:11:13.609Z",
+            "BookMaker": "Bet365"
+        },
+        "Decision": "Lose",
+        "ROI": 0.03640875746509035
+    },
+    {
+        "_id": "54fe55086a385b8439726b05",
+        "BetItem": {
+            "Id": "5ad80bbb-e4d4-4f21-bff2-47b72408622f",
+            "GameName": "829808",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Burnley",
+                    "Type": 0
+                },
+                {
+                    "Name": "Manchester_City",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 8.18,
+                "Lose": 1.45,
+                "Draw": 4.78,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-14T17:30:00.000Z",
+            "MatchDate": "2015-03-10T02:11:24.997Z",
+            "BookMaker": "Pinnacle Sports"
+        },
+        "Decision": "Win",
+        "ROI": 0.10553049647922257
+    },
+    {
+        "_id": "54fe55086a385b8439726b06",
+        "BetItem": {
+            "Id": "26b2a674-33a1-4cf6-9ac3-82bf6023d393",
+            "GameName": "829816",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Chelsea",
+                    "Type": 0
+                },
+                {
+                    "Name": "Southampton",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 1.5,
+                "Lose": 7.5,
+                "Draw": 4.33,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-15T13:30:00.000Z",
+            "MatchDate": "2015-03-10T02:11:36.698Z",
+            "BookMaker": "Totesport"
+        },
+        "Decision": "Lose",
+        "ROI": 0.05673120137496328
+    },
+    {
+        "_id": "54fe55086a385b8439726b07",
+        "BetItem": {
+            "Id": "807c5e35-9ce9-4150-99b1-b4cbeaac01cd",
+            "GameName": "829824",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Crystal_Palace",
+                    "Type": 0
+                },
+                {
+                    "Name": "Queens_Park_Rangers",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 1.76,
+                "Lose": 5.31,
+                "Draw": 3.77,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-14T12:45:00.000Z",
+            "MatchDate": "2015-03-10T02:11:49.204Z",
+            "BookMaker": "Pinnacle Sports"
+        },
+        "Decision": "Lose",
+        "ROI": 0.04918882306582576
+    },
+    {
+        "_id": "54fe55086a385b8439726b08",
+        "BetItem": {
+            "Id": "529c0805-92db-4ab5-a3a2-ae276ce579f9",
+            "GameName": "829831",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Everton",
+                    "Type": 0
+                },
+                {
+                    "Name": "Newcastle_United",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 1.82,
+                "Lose": 4.9,
+                "Draw": 3.76,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-15T16:00:00.000Z",
+            "MatchDate": "2015-03-10T02:11:59.238Z",
+            "BookMaker": "Pinnacle Sports"
+        },
+        "Decision": "Lose",
+        "ROI": 0.028639594783328656
+    },
+    {
+        "_id": "54fe55086a385b8439726b09",
+        "BetItem": {
+            "Id": "cf97ac7d-ff57-4832-b224-8aaf73a876f0",
+            "GameName": "829835",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Leicester",
+                    "Type": 0
+                },
+                {
+                    "Name": "Hull",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 2.19,
+                "Lose": 3.81,
+                "Draw": 3.32,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-14T15:00:00.000Z",
+            "MatchDate": "2015-03-10T02:12:05.719Z",
+            "BookMaker": "Pinnacle Sports"
+        },
+        "Decision": "Lose",
+        "ROI": 0.04043160683973156
+    },
+    {
+        "_id": "54fe55096a385b8439726b0a",
+        "BetItem": {
+            "Id": "10297ad3-3ad6-4417-8c6e-a7af55117a27",
+            "GameName": "829804",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Newcastle_United",
+                    "Type": 0
+                },
+                {
+                    "Name": "Arsenal",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 4.2,
+                "Lose": 1.9,
+                "Draw": 3.6,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-21T15:00:00.000Z",
+            "MatchDate": "2015-03-10T02:11:18.416Z",
+            "BookMaker": "Sportingbet"
+        },
+        "Decision": "Lose",
+        "ROI": 0.008170047328033435
+    },
+    {
+        "_id": "54fe55096a385b8439726b0b",
+        "BetItem": {
+            "Id": "8d941609-1c72-470a-a6c7-764dae1afa4d",
+            "GameName": "829812",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Queens_Park_Rangers",
+                    "Type": 0
+                },
+                {
+                    "Name": "Everton",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 2.85,
+                "Lose": 2.5,
+                "Draw": 3.5,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-22T16:00:00.000Z",
+            "MatchDate": "2015-03-10T02:11:29.738Z",
+            "BookMaker": "Sportingbet"
+        },
+        "Decision": "Lose",
+        "ROI": 0.010614072786840473
+    },
+    {
+        "_id": "54fe55096a385b8439726b0c",
+        "BetItem": {
+            "Id": "ffb9a2bc-9599-4f1f-b0b5-698f2a512b95",
+            "GameName": "829820",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Southampton",
+                    "Type": 0
+                },
+                {
+                    "Name": "Burnley",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 1.44,
+                "Lose": 8,
+                "Draw": 4.5,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-21T15:00:00.000Z",
+            "MatchDate": "2015-03-10T02:11:42.406Z",
+            "BookMaker": "Victor Chandler"
+        },
+        "Decision": "Lose",
+        "ROI": 0.03729198293177781
+    },
+    {
+        "_id": "54fe55096a385b8439726b0d",
+        "BetItem": {
+            "Id": "af49abca-cbbb-418a-8864-f6d6d5beb7ca",
+            "GameName": "829828",
+            "GameType": 0,
+            "Teams": [
+                {
+                    "Name": "Stoke",
+                    "Type": 0
+                },
+                {
+                    "Name": "Crystal_Palace",
+                    "Type": 0
+                }
+            ],
+            "Odds": {
+                "Win": 2.1,
+                "Lose": 3.9,
+                "Draw": 3.25,
+                "Type": 0
+            },
+            "Aggregated": false,
+            "OddsDate": "2015-03-21T15:00:00.000Z",
+            "MatchDate": "2015-03-10T02:11:53.543Z",
+            "BookMaker": "Victor Chandler"
+        },
+        "Decision": "Lose",
+        "ROI": -0.0035972283022951634
+    }
+]

@@ -1,0 +1,86 @@
+/* Fix user-agent */
+
+* {
+  box-sizing: border-box;
+}
+
+
+.page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+
+body {
+  overflow: hidden;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 15px;
+}
+
+.SearchBox {
+  width: 80%;
+}
+
+.RecordList {
+  margin-top: 100px;
+  display: inline-block;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: 100%;
+  position: absolute;
+  top: 120px;
+  bottom: 5%;
+}
+
+.panel-group {
+  overflow-y: auto;
+  height: 80vh;
+}
+
+.row {
+  margin-bottom: 3vh;
+}
+
+.badLvl {
+  color: white;
+  background-color: red;
+}
+
+.poorLvl {
+  color: white;
+  background-color: #D8ECD8;
+}
+
+.normalLvl {
+  color: white;
+  background-color: #82D9B2;
+}
+
+.fairLvl {
+  color: white;
+  background-color: #4DA64D;
+}
+
+.goodLvl {
+  color: white;
+  background-color: green;
+}
+
+.veryGoodLvl {
+  color: white;
+  background-color: #005A00;
+}
+
+.excellentLvl {
+  color: white;
+  background-color: #003300;
+}
+
+.pageTitle {
+  margin-left: 15px;
+  text-align: center;
+}
